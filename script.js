@@ -1,4 +1,4 @@
-document.getElementById('questionForm').addEventListener('submit', function(event) {
+document.getElementById('questionForm').addEventListener('submit', async function(event) {
     event.preventDefault();
     
     const questionInput = document.getElementById('questionInput');
@@ -9,6 +9,14 @@ document.getElementById('questionForm').addEventListener('submit', function(even
         const questionDiv = document.createElement('div');
         questionDiv.classList.add('question', 'border', 'rounded', 'p-3');
         questionDiv.textContent = questionText;
+
+        // Firestore에 질문 저장
+        const questionRef = await db.collection('questions').add({
+            question: questionText,
+            answers: []
+        });
+
+        const questionId = questionRef.id; // 질문 ID 가져오기
 
         // 답변 추가 버튼
         const answerButton = document.createElement('button');
@@ -30,13 +38,18 @@ document.getElementById('questionForm').addEventListener('submit', function(even
             answerButton.textContent = answerButton.textContent === '답변하기' ? '답변 취소' : '답변하기';
         });
 
-        answerInput.addEventListener('keypress', function(event) {
+        answerInput.addEventListener('keypress', async function(event) {
             if (event.key === 'Enter' && answerInput.value) {
                 const answerDiv = document.createElement('div');
                 answerDiv.classList.add('answer');
                 answerDiv.textContent = answerInput.value;
                 questionDiv.appendChild(answerDiv);
                 
+                // Firestore에 답변 저장
+                await questionRef.update({
+                    answers: firebase.firestore.FieldValue.arrayUnion(answerInput.value)
+                });
+
                 // SweetAlert2 알림
                 Swal.fire({
                     icon: 'success',
