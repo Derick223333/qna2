@@ -6,6 +6,24 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@10/dist/sweetalert2.min.css">
     <title>질문 게시판</title>
+    <script src="https://www.gstatic.com/firebasejs/9.1.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.1.0/firebase-firestore.js"></script>
+    <script>
+        // Firebase 구성
+        const firebaseConfig = {
+            apiKey: "AIzaSyADRg17Zo60goV-44AVIjxNM94Je6qdHVQ",
+            authDomain: "qna2-4ce63.firebaseapp.com",
+            projectId: "qna2-4ce63",
+            storageBucket: "qna2-4ce63.appspot.com",
+            messagingSenderId: "999724471869",
+            appId: "1:999724471869:web:6cfdd3e2cd5af0a04fbc54",
+            measurementId: "G-XF8TGRK5CN"
+        };
+
+        // Firebase 초기화
+        const app = firebase.initializeApp(firebaseConfig);
+        const db = firebase.firestore();
+    </script>
 </head>
 <body>
     <div class="container mt-5">
