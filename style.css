@@ -18,3 +18,7 @@ body {
     border-radius: 5px;
     border: 1px solid #bee5eb;
 }
+
+input {
+    margin-top: 10px;
+}
